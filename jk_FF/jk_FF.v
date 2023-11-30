@@ -11,6 +11,4 @@ module jk_FF(
     2'b01: q<=0;
     2'b11: q<=~q;
     endcase
-    
-    
 endmodule
