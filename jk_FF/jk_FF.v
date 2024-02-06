@@ -1,14 +1,18 @@
 `timescale 1ns / 1ps
-module jk_FF(
-    input j,k,clk,
-    output q
+module JK(
+    input J,K,clk,
+    output reg Q,Qn
     );
-    reg q;
+    
     always @(posedge clk)
-    case({j,k})
-    2'b00: q<=q;
-    2'b10: q<=1;
-    2'b01: q<=0;
-    2'b11: q<=~q;
+    begin 
+    case ({J,K})
+    2'b00: Q = Q;
+    2'b10: Q = 1;
+    2'b01: Q = 0;
+    2'b11: Q = ~Q; 
     endcase
+    assign Qn = ~Q;
+    end
+   
 endmodule

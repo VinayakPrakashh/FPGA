@@ -1,22 +1,21 @@
 `timescale 1ns / 1ps
-module jk_tb;
-reg j,k,clk;
-always #5clk=~clk;
-jk_FF dut(.j(j),.k(k),.clk(clk),.q(q));
+
+module JK_tb;
+reg J,K,clk;
+wire Q,Qn;
+JK dut(J,K,clk,Q,Qn);
 initial begin
-j <= 0;
-k <= 0;
-#500
-j <= 1;
-#500
-j<=0;
-k<=1;
-#500
-j<=1;
-#500
-$finish;
+clk = 0;
+forever #5 clk = ~clk;
 end
 initial begin
-$monitor ("j=%0d k=%0d q=%0d", j, k, q); 
+J =1; K = 0;
+#50
+J = 0; K = 0;
+#50
+J = 0; K =1;
+#50
+J = 1; K = 1;
+$finish;
 end
 endmodule
