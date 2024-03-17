@@ -65,3 +65,9 @@ c_min0,a_min0 : The least significant minute digit of the temp clock and alarm.
 c_sec1,a_sec1 : The most significant second digit of the temp clock and alarm.
 
 c_sec0,a_sec0 : The least significant minute digit of the temp clock and alarm.
+## Scematic
+![Scematic](https://github.com/VinayakPrakashh/FPGA/assets/101159818/4b9ddc8b-26b1-4865-8a24-11e759c65f2d)
+## Waveform
+![Screenshot 2024-03-17 140332](https://github.com/VinayakPrakashh/FPGA/assets/101159818/ff025b67-76ba-43a4-9658-052fa3858c78)
+
+
