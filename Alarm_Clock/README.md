@@ -1,6 +1,6 @@
 Hello everyone, so this project basically implements an alarm clock using Verilog HDL.
 We are generating a clock with 7 output signals including Alarm signal, Hour, Minute, and seconds.
-The input clock given as input is 10Hz.
+This project is useful for learning Verilog and digital design concepts, as it demonstrates how to implement a basic clocking system and interact with input signals to control the clock's behavior.
 ## Features
 1. Initializing clock time to a particular value.
 
