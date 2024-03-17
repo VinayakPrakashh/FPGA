@@ -27,7 +27,7 @@ reg [3:0] c_min0,a_min0;
 reg [3:0] c_sec1,a_sec1;
 reg [3:0] c_sec0,a_sec0;
 
-function [3:0] mod_10;
+function [3:0] mod_10; /*returns MSB*/
 input [5:0] number;
 begin
 mod_10 = (number>=50)?5:((number>=40)?4:((number>=30)?3:((number>=20)?2:((number>=10)?1:0))));
@@ -49,7 +49,7 @@ a_hour1 <= 2'b00;
  
 end
 else begin
-if(LD_alarm)begin
+if(LD_alarm)begin /* SET alarm */
  a_hour1 <= H_in1;
  a_hour0 <= H_in0;
  a_min1 <= M_in1;
@@ -57,12 +57,12 @@ if(LD_alarm)begin
  a_sec1 <= 4'b0000;
  a_sec0 <= 4'b0000;
 end
-if(LD_time)begin
+if(LD_time)begin /*Set Time*/
  tmp_hour <= H_in1*10 + H_in0;
  tmp_minute <= M_in1*10 + M_in0;
  tmp_second <= 0;
 end
-else begin 
+else begin /* Clock Counting */
 tmp_second = tmp_second +1;
  if(tmp_second >=59) begin
  tmp_minute <= tmp_minute + 1;
@@ -78,7 +78,7 @@ end
 end
 end
 end
-always @(posedge clk or posedge reset)
+always @(posedge clk or posedge reset) /* convert 10hz clock to 1hz */
 begin
 if(reset)
 begin
@@ -99,7 +99,7 @@ end
 end
 always @(*) begin
 
- if(tmp_hour>=20) begin
+ if(tmp_hour>=20) begin /* setting time */
  c_hour1 = 2;
  end
  else begin
@@ -116,7 +116,7 @@ always @(*) begin
  end
 
 
-always @(posedge clk_1s or posedge reset) 
+always @(posedge clk_1s or posedge reset) /* Trigger alarm */
 begin
  if(reset)
  Alarm <=0;
