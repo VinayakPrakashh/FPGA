@@ -2,7 +2,15 @@ Hello everyone, so this project basically implements an alarm clock using Verilo
 We are generating a clock with 7 output signals including Alarm signal, Hour, Minute, and seconds.
 The input clock given as input is 10Hz.
 ## Features
-Here is Block diagram of the clock
+1. Initializing clock time to a particular value.
+
+2. Setting time for alarm.
+
+3. Enabling and disabling alarm.
+
+3. Stopping alarm.
+
+## Block Diagram
 ![Block diagram](https://github.com/VinayakPrakashh/FPGA/assets/101159818/03efefad-8776-47cd-89e0-6d55b5de7e83)
 Input Signals: reset : Active high reset pulse, to set the time to the input hour and minute (as defined by the H_in1, H_in0, M_in1, and M_in0 inputs) and the second to 00. It should also set the alarm value to 0.00.00, and to set the Alarm (output) low.For normal operation, this input pin should be 0
 
