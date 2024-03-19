@@ -1,0 +1,1 @@
+Performing addition on large numbers (like 64 bits) can be slow using a ripple carry adder, where each bit's carry depends on the previous bit's addition. A carry lookahead adder offers a faster approach.
