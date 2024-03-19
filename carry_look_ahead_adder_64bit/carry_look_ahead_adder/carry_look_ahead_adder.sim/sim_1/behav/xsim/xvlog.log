@@ -1,0 +1,8 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/New folder/carry_look_ahead_adder/carry_look_ahead_adder.srcs/sources_1/new/cla.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module adder
+INFO: [VRFC 10-311] analyzing module sum
+INFO: [VRFC 10-311] analyzing module CLA4bit
+INFO: [VRFC 10-311] analyzing module CLA16bit
+INFO: [VRFC 10-311] analyzing module CLA64bit
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/New folder/carry_look_ahead_adder/carry_look_ahead_adder.srcs/sim_1/new/CLA_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module CLA_tb
