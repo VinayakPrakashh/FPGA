@@ -2,4 +2,4 @@ The multiplier circuit is based on the add shift algorithm. The main advantage o
 ## Logic Diagram:
 ![logic-diagram](https://github.com/VinayakPrakashh/FPGA/assets/101159818/c9da52fa-e4d6-4b6f-9137-956ce9dc8864)
 ## Schematic Diagram:
-![Uploading Screenshot 2024-03-19 193820.png…]()
+![Screenshot 2024-03-19 193820](https://github.com/VinayakPrakashh/FPGA/assets/101159818/83959f18-2d6a-4ed0-8d39-793abfa97923)
