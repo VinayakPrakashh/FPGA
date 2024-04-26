@@ -22,8 +22,11 @@ always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
        wr_ptr <= 3'b0;
     end else begin
+        if (wr_en_i == 1 ) begin
+        
         mem[wr_ptr] <= data_i;
         wr_ptr <= wr_ptr + 1;   
+        end 
     end
 
 
@@ -45,10 +48,10 @@ always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
        count <= 4'b0;
     end else begin
-        case ((wr_en_i,rd_en_i))
-            2'b00:count <= count+1;
+        case ({wr_en_i,rd_en_i})
+            2'b10:count <= count+1;
             2'b01:count <= count-1;
-            2'b10:count <= count;
+            2'b00:count <= count;
             2'b11:count <= count; 
             default: count <= count;
         endcase
