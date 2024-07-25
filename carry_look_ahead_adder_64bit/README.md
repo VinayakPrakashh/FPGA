@@ -4,7 +4,7 @@ A 4-bit CLA takes two 4-bit binary numbers (a and b) and a carry-in (cin) as inp
 It utilizes internal logic to "look ahead" and anticipate the carry for each bit position based on the input bits (a and b) and the previous carry-in.
 This allows the CLA to generate all the sum bits and carry-out simultaneously, speeding up the addition process.
 ## Cascading 4-bit CLAs:
-In this design, we cascade eight 4-bit CLAs to achieve 64-bit addition.
+In this design, we cascade sixteen 4-bit CLAs to achieve 64-bit addition.
 Each 4-bit CLA handles its corresponding 4 bits from the two 64-bit input operands (a and b).
 The carry-out from one CLA becomes the carry-in for the next higher-order CLA, efficiently propagating the carry information through all stages.
 ## Benefits:
