@@ -84,10 +84,10 @@ module instruction_fetch(clk1,clk2,HALTED,TAKEN_BRANCH,EX_MEM_ALUout,EX_MEM_IR,I
                         SRL: EX_MEM_ALUout <= ID_EX_A >> ID_EX_IR[24:20];
                         endcase
             B_TYPE: case (ID_EX_IR[14:12])
-                        BEQ: if(ID_EX_A == ID_EX_B) TAKEN_BRANCH <= 1;
-                        BNE: if(ID_EX_A != ID_EX_B) TAKEN_BRANCH <= 1;
-                        BLT: if(ID_EX_A < ID_EX_B) TAKEN_BRANCH <= 1;
-                        BGT: if(ID_EX_A > ID_EX_B) TAKEN_BRANCH <= 1;
+                        BEQ: if(ID_EX_A == ID_EX_B) begin EX_MEM_ALUout <= ID_EX_NPC + ID_EX_IMM; TAKEN_BRANCH <= 1; end
+                        BNE: if(ID_EX_A != ID_EX_B) begin EX_MEM_ALUout <= ID_EX_NPC + ID_EX_IMM; TAKEN_BRANCH <= 1; end
+                        BLT: if(ID_EX_A < ID_EX_B) begin EX_MEM_ALUout <= ID_EX_NPC + ID_EX_IMM; TAKEN_BRANCH <= 1; end
+                        BGT: if(ID_EX_A > ID_EX_B) begin EX_MEM_ALUout <= ID_EX_NPC + ID_EX_IMM; TAKEN_BRANCH <= 1; end
                         endcase
             L_TYPE: case (ID_EX_IR[14:12])
                         LB: EX_MEM_ALUout <= mem[ID_EX_A + ID_EX_IMM];
@@ -99,7 +99,7 @@ module instruction_fetch(clk1,clk2,HALTED,TAKEN_BRANCH,EX_MEM_ALUout,EX_MEM_IR,I
                         SH: mem[ID_EX_A + ID_EX_IMM] <= ID_EX_B;
                         SW: mem[ID_EX_A + ID_EX_IMM] <= ID_EX_B;
                         endcase
-            J_TYPE: EX_MEM_ALUout <= ID_EX_NPC + ID_EX_IMM;
+            J_TYPE: begin EX_MEM_ALUout <= ID_EX_NPC + ID_EX_IMM; TAKEN_BRANCH <= 1; end
             default: 
         endcase
     end
