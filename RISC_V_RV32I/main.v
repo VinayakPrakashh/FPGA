@@ -100,7 +100,7 @@ module instruction_fetch(clk1,clk2,HALTED,TAKEN_BRANCH,EX_MEM_ALUout,EX_MEM_IR,I
                         SW: mem[ID_EX_A + ID_EX_IMM] <= ID_EX_B;
                         endcase
             J_TYPE: begin EX_MEM_ALUout <= ID_EX_NPC + ID_EX_IMM; TAKEN_BRANCH <= 1; end
-            default: 
+            default: EX_MEM_ALUout <= 0;
         endcase
     end
     end
