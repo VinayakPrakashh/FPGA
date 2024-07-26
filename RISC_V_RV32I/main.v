@@ -21,18 +21,18 @@ module instruction_fetch(clk1,clk2,HALTED,TAKEN_BRANCH,EX_MEM_ALUout,EX_MEM_IR,I
     begin
     if(HALTED == 0) begin
     
-    if(EX_MEM_IR[6:0]==branch)begin
+    if(TAKEN_BRANCH)begin
     IF_ID_IR <= mem[EX_MEM_ALUout];
+    IF_ID_NPC <= EX_MEM_ALUout+1;
+    PC <= EX_MEM_ALUout+1;
     TAKEN_BRANCH <= 1'b1;
-    IF_ID_NPC <= EX_MEM_ALUout+4;
-    PC <= EX_MEM_ALUout+4;
     end
     end
     
     else begin
     IF_ID_IR <= mem[PC];
-    IF_ID_NPC <= PC+4;
-    PC <= PC+4;
+    IF_ID_NPC <= PC+1;
+    PC <= PC+1;
     end
     end
 
