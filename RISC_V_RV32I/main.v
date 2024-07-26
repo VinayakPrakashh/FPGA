@@ -7,6 +7,7 @@ module instruction_fetch(clk1,clk2,HALTED,TAKEN_BRANCH,EX_MEM_ALUout,EX_MEM_IR,I
     reg [31:0] EX_MEM_ALUout,EX_MEM_B,EX_MEM_IR,EX_MEM_NPC,EX_MEM_IMM;
     reg [31:0] PC;
     reg [2:0] ID_EX_TYPE,EX_MEM_TYPE,MEM_WB_TYPE;
+    reg [31:0]  MEM_WB_ALUout,MEM_WB_B,MEM_WB_IR,MEM_WB_NPC,MEM_WB_IMM;
     output reg [31:0] IF_ID_IR,IF_ID_NPC;
     output reg TAKEN_BRANCH;
     reg [31:0] mem [0:1023];
@@ -25,7 +26,7 @@ module instruction_fetch(clk1,clk2,HALTED,TAKEN_BRANCH,EX_MEM_ALUout,EX_MEM_IR,I
     IF_ID_IR <= mem[EX_MEM_ALUout];
     IF_ID_NPC <= EX_MEM_ALUout+1;
     PC <= EX_MEM_ALUout+1;
-    TAKEN_BRANCH <= 1'b1;
+    TAKEN_BRANCH <= 0'b1;
     end
     end
     
@@ -102,6 +103,33 @@ module instruction_fetch(clk1,clk2,HALTED,TAKEN_BRANCH,EX_MEM_ALUout,EX_MEM_IR,I
             J_TYPE: begin EX_MEM_ALUout <= ID_EX_NPC + ID_EX_IMM; TAKEN_BRANCH <= 1; end
             default: EX_MEM_ALUout <= 0;
         endcase
+
     end
+    end
+    always @(posedge clk2) //Memory access
+     begin
+        if(HALTED == 0) begin
+            MEM_WB_TYPE <= EX_MEM_TYPE;
+            MEM_WB_IR <= EX_MEM_IR;
+            case (EX_MEM_TYPE)
+                R_TYPE, I_TYPE: MEM_WB_ALUout <= EX_MEM_ALUout;
+                L_TYPE: MEM_WB_ALUout <= mem[EX_MEM_ALUout];          
+                S_TYPE: if(TAKEN_BRANCH == 0) MEM_WB_ALUout <= EX_MEM_ALUout; 
+                
+                default: MEM_WB_ALUout <= 0;  
+            endcase
+        end
+    end
+    always @(posedge clk1) //Write back
+    begin
+        if(HALTED == 0) begin
+            case (MEM_WB_TYPE)
+                R_TYPE: Reg[MEM_WB_IR[11:7]] <= MEM_WB_ALUout;
+                I_TYPE: Reg[MEM_WB_IR[11:7]] <= MEM_WB_ALUout;
+                L_TYPE: Reg[MEM_WB_IR[11:7]] <= MEM_WB_ALUout;
+                S_TYPE: if(TAKEN_BRANCH == 0) Reg[MEM_WB_IR[11:7]] <= MEM_WB_ALUout;
+                default: Reg[MEM_WB_IR[11:7]] <= 0;
+            endcase
+        end
     end
 endmodule
