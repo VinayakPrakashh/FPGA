@@ -89,6 +89,17 @@ module instruction_fetch(clk1,clk2,HALTED,TAKEN_BRANCH,EX_MEM_ALUout,EX_MEM_IR,I
                         BLT: if(ID_EX_A < ID_EX_B) TAKEN_BRANCH <= 1;
                         BGT: if(ID_EX_A > ID_EX_B) TAKEN_BRANCH <= 1;
                         endcase
+            L_TYPE: case (ID_EX_IR[14:12])
+                        LB: EX_MEM_ALUout <= mem[ID_EX_A + ID_EX_IMM];
+                        LH: EX_MEM_ALUout <= mem[ID_EX_A + ID_EX_IMM];
+                        LW: EX_MEM_ALUout <= mem[ID_EX_A + ID_EX_IMM];
+                        endcase
+            S_TYPE: case (ID_EX_IR[14:12])
+                        SB: mem[ID_EX_A + ID_EX_IMM] <= ID_EX_B;
+                        SH: mem[ID_EX_A + ID_EX_IMM] <= ID_EX_B;
+                        SW: mem[ID_EX_A + ID_EX_IMM] <= ID_EX_B;
+                        endcase
+            J_TYPE: EX_MEM_ALUout <= ID_EX_NPC + ID_EX_IMM;
             default: 
         endcase
     end
