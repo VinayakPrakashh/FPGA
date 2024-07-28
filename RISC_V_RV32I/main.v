@@ -12,7 +12,6 @@ module instruction_fetch(clk1,clk2,HALTED,TAKEN_BRANCH,EX_MEM_ALUout,EX_MEM_IR,I
     output reg TAKEN_BRANCH;
     reg [31:0] mem [0:1023];
     reg [31:0] Reg [0:31];
-    parameter branch=7'b0000110;
     parameter R_TYPE = 7'b0110011, I_TYPE = 7'b0010011, B_TYPE = 7'b1100011, L_TYPE = 7'b0000001, S_TYPE = 7'b0100011, J_TYPE = 7'b1101111 ;
     parameter ADD = 3'b000, SUB = 3'b001, AND = 3'b010, OR = 3'B011, XOR = 3'B100, SLL = 3'b101,SRL = 3'b110;
     parameter BEQ = 3'B000, BNE = 3'B001, BLT = 3'B010, BGT = 3'B011;
