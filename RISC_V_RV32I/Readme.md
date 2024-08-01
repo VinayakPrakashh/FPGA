@@ -31,6 +31,12 @@ Modularity: RISC-V is designed to be modular, allowing for the addition of custo
 Open Standard: The ISA is freely available, promoting innovation and development.   
 Efficiency: The reduced instruction set and simple architecture contribute to efficient hardware implementation.   
 Flexibility: RV32I can be used as a basis for various processor designs, from embedded systems to high-performance computing
+## INSTRUCTION EXECUTION STAGES
+1. Instruction Fetch(IF)
+2. Instruction Decode(ID)
+3. instruction Execution(IE)
+4. Memory Access(MEM)
+5. Write Back(WB)
 
 ## Disclaimer:
 This project is a work in progress and may not yet implement all RISC-V RV32I instructions. Please refer to the future enhancements section for planned additions.
