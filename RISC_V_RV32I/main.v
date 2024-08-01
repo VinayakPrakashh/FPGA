@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module instruction_fetch(clk1,clk2,start
+module risc_v_rv32i(clk1,clk2,start
     );
     input clk1,clk2,start;
     reg HALTED,TAKEN_BRANCH;
