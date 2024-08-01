@@ -37,6 +37,8 @@ Flexibility: RV32I can be used as a basis for various processor designs, from em
 3. instruction Execution(IE)
 4. Memory Access(MEM)
 5. Write Back(WB)
+## Circuit Structure
+![image](https://github.com/user-attachments/assets/39410bcb-6b99-453a-bcd1-a7af8da7775a)
 
 ## Disclaimer:
 This project is a work in progress and may not yet implement all RISC-V RV32I instructions. Please refer to the future enhancements section for planned additions.
