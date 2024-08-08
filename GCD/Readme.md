@@ -8,3 +8,4 @@ This project implements a 16-bit Greatest Common Divisor (GCD) calculator using 
 control_path.v: This module implements the control logic for the GCD calculator. It uses a state machine to sequence operations and generate control signals for the datapath.
 datapath.v: This module comprises the arithmetic units (adders, subtractors, comparators) and registers for performing GCD calculations.
 ## Output waveform: 
+![waveform (1)](https://github.com/user-attachments/assets/117af098-0702-4a96-b52d-1df844712f8a)
