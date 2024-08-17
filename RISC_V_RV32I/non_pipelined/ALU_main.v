@@ -10,17 +10,17 @@ input [2:0] func;
 input [6:0] opcode;
 output reg [31:0] Y;
 
-always @(posedge ALU_EN) begin
+always @(*) begin
 case (opcode)
 R_TYPE,I_TYPE:begin 
            case (func)
-            ADD: Y = A + B;
-            SUB: Y = A - B;
-            AND: Y = A & B;
-            OR: Y = A | B;
-            XOR: Y = A ^ B;
-            SLL: Y = A << B;
-            SRL: Y = A >> B;
+            ADD: Y <= A + B;
+            SUB: Y <= A - B;
+            AND: Y <= A & B;
+            OR: Y <= A | B;
+            XOR: Y <= A ^ B;
+            SLL: Y <= A << B;
+            SRL: Y <= A >> B;
             default: Y = 32'h00000000;
            endcase
 end

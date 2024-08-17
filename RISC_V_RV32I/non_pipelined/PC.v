@@ -9,6 +9,7 @@ always @(posedge clk) begin
 if(rst==1'b1)
 begin
     PC<=32'h00000000;
+    
 end
 else PC<=PC_NEXT;  
 end

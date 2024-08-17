@@ -15,7 +15,9 @@ if(WE==1'b1) Reg[RW_addr] <= WR1;
       end
 end
 initial begin
-Reg[0] <= 32'h24ff43ff;
-Reg[1] <= 32'h3452f456;
+Reg[0] <= 32'h00000000;
+Reg[1] <= 32'h00000004;
+Reg[2] <= 32'h00000001;
+
 end
 endmodule

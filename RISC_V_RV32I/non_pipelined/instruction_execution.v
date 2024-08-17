@@ -40,7 +40,8 @@ branching_unit branching_unit1(
 always @(*) begin
 
 case (ID_EX_IR[6:0])
-    R_TYPE,I_TYPE:begin  en_alu<=1; A_IMM<=ID_EX_B;  end
+    R_TYPE:begin  en_alu<=1; A_IMM<=ID_EX_B;  end
+    I_TYPE:begin  en_alu<=1; A_IMM<=ID_EX_IMM;  end
     S_TYPE,L_TYPE:begin  en_alu<=1; A_IMM<=ID_EX_IMM; end
     B_TYPE,J_TYPE:begin BRANCH<= 1'b1; end
 endcase
