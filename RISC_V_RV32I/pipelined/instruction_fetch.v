@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+
 `timescale 1ns / 1ps
 module instruction_fetch (clk, rst, PCSrcE, PCTargetE, IF_ID_IR, IF_ID_PC, IF_ID_PC1);
     //  input & outputs
