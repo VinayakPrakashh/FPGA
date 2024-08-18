@@ -2,7 +2,7 @@
 module ALU (
  A,B,func,Y,ALU_EN,opcode
 );
- parameter R_TYPE = 7'b0110011, I_TYPE = 7'b0010011, B_TYPE = 7'b1100011, L_TYPE = 7'b0000001, S_TYPE = 7'b0100011;
+ parameter R_TYPE = 7'b0110011, I_TYPE = 7'b0010011, B_TYPE = 7'b1100011, L_TYPE = 7'b0000011, S_TYPE = 7'b0100011;
  parameter ADD = 3'b000, SUB = 3'b001, AND = 3'b010, OR = 3'B011, XOR = 3'B100, SLL = 3'b101,SRL = 3'b110;
 input ALU_EN;
 input [31:0] A,B;
