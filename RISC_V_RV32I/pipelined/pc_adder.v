@@ -1,8 +1,8 @@
-module PC_adder (a,b,c);
+module PC_adder (a,c);
 
-    input [31:0]a,b;
+    input [31:0]a;
     output [31:0]c;
 
-    assign c = a + b;
+    assign c = a + 1;
     
 endmodule

@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 module Register_File(clk,rst,WE3,WD3,A1,A2,A3,RD1,RD2);
 
     input clk,rst,WE3;
@@ -18,6 +19,8 @@ module Register_File(clk,rst,WE3,WD3,A1,A2,A3,RD1,RD2);
 
     initial begin
         Register[0] = 32'h00000000;
+        Register[1] = 32'h0000ee00;
+        Register[2] = 32'h0000ff00;
     end
 
 endmodule
