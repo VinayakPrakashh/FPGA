@@ -11,6 +11,9 @@ module Instruction_mem(rst,A,RD);
 //  initial begin
 //    $readmemh("memfile.hex",mem);
 //  end
+
+
+
   initial begin
     mem[0] = 32'b00000000001000001000001010110011;
     mem[1] = 32'h00832383;

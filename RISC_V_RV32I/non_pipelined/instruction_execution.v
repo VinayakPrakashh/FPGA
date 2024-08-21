@@ -4,10 +4,10 @@ module instruction_execution (clk,rst,ID_EX_A, ID_EX_B,ID_EX_IMM,ID_EX_PC,ID_EX_
 input clk,rst;
 input [31:0] ID_EX_A, ID_EX_B,ID_EX_IMM,ID_EX_PC;
 input [4:0] ID_EX_RD;
-input [1:0] alu_type_sel,b_imm_sel;
+input [1:0] alu_type_sel;
 input [2:0] alucontrol;
 input [6:0] alucontrol7;
-input branch,jump,memwrite_en,regwrite_en,wb_sel;
+input b_imm_sel,branch,jump,memwrite_en,regwrite_en,wb_sel;
 //outputs
 output [31:0] EX_MEM_ALU_OUT,PCtarget,EX_MEM_writedata;
 output PC_sel;
@@ -42,9 +42,9 @@ alu alu (.ID_EX_A(ID_EX_A),
          .alu_type_sel(alu_type_sel),
          .alucontrol(alucontrol),
          .alucontrol7(alucontrol7),
-         .EX_MEM_ALU_OUT(EX_MEM_ALU_OUT),
+         .EX_MEM_ALU_OUT(EX_MEM_ALU_OUT_w),
          .branch_cond(branch_cond));
- mux_3_1  mux2(.a(ID_EX_B),.b(ID_EX_IMM),.s(b_imm_sel),.y(ID_EX_BI));
+ mux_2_1  mux2(.a(ID_EX_B),.b(ID_EX_IMM),.s(b_imm_sel),.y(ID_EX_BI));
 always @(posedge clk or posedge rst)begin
     if(rst==1'b1)begin
         EX_MEM_ALU_OUT_r <= 32'b0;
