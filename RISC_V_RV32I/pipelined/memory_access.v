@@ -6,24 +6,24 @@ input clk,rst;
 input [31:0] EX_MEM_ALU_OUT,EX_MEM_writedata;
 input [4:0] EX_MEM_RD;
 input EX_MEM_memwrite_en,EX_MEM_regwrite_en;
-input [1:0] EX_MEM_wb_sel;
+input  EX_MEM_wb_sel;
 //outputs
 output [4:0] MEM_WB_RD;
 output MEM_WB_regwrite_en;
-output [1:0] MEM_WB_wb_sel;
+output MEM_WB_wb_sel;
 output [31:0] MEM_WB_ALU_OUT, MEM_WB_LOAD_ALU_OUT;
 
 //registers
 reg [31:0] MEM_WB_ALU_OUT_r, MEM_WB_LOAD_ALU_OUT_r;
 reg [4:0] MEM_WB_RD_r;
 reg MEM_WB_regwrite_en_r;
-reg [1:0] MEM_WB_wb_sel_r;
+reg MEM_WB_wb_sel_r;
 
 //wire
 wire MEM_WB_regwrite_en_w;
 wire [31:0] MEM_WB_ALU_OUT_w, MEM_WB_LOAD_ALU_OUT_w;
 wire [4:0] MEM_WB_RD_w;
-wire [1:0] MEM_WB_wb_sel_w;
+wire  MEM_WB_wb_sel_w;
 
 //assign
 assign MEM_WB_regwrite_en_w = EX_MEM_regwrite_en;

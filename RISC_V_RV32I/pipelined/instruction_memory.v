@@ -15,7 +15,7 @@ module Instruction_mem(rst,A,RD);
 
 
   initial begin
-    mem[0] = 32'hFFC4A303;
+    mem[0] = 32'b00000000001000001000001010110011;
     mem[1] = 32'h00832383;
      mem[2] = 32'h0064A423;
      mem[3] = 32'h00B62423;

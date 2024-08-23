@@ -42,7 +42,7 @@ alu alu (.ID_EX_A(ID_EX_A),
          .alu_type_sel(alu_type_sel),
          .alucontrol(alucontrol),
          .alucontrol7(alucontrol7),
-         .EX_MEM_ALU_OUT(EX_MEM_ALU_OUT),
+         .EX_MEM_ALU_OUT(EX_MEM_ALU_OUT_w),
          .branch_cond(branch_cond));
  mux_2_1  mux2(.a(ID_EX_B),.b(ID_EX_IMM),.s(b_imm_sel),.y(ID_EX_BI));
 always @(posedge clk or posedge rst)begin

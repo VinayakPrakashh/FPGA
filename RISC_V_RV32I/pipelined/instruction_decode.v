@@ -37,8 +37,8 @@ Register_File reg1(.clk(clk),
                    .A1(IF_ID_IR[19:15]), 
                    .A2(IF_ID_IR[24:20]), 
                    .A3(WB_ID_RDW_addr), 
-                   .RD1(ID_EX_A), 
-                   .RD2(ID_EX_B)
+                   .RD1(ID_EX_A_w), 
+                   .RD2(ID_EX_B_w)
                    );
 control_unit control_unit(.opcode(IF_ID_IR[6:0]),
                           .funct3(IF_ID_IR[14:12]),
