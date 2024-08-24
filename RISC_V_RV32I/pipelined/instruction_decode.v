@@ -23,7 +23,7 @@ reg b_imm_sel_r,branch_r,jump_r,memwrite_en_r,regwrite_en_r,wb_sel_r;
 
 //internal wires
 wire [31:0] ID_EX_PC_w, ID_EX_A_w, ID_EX_B_w, ID_EX_IMM_w,ID_EX_RD_w;
-wire [1:0] imm_sel,alu_type_sel_w;
+wire [1:0] alu_type_sel_w,imm_sel_w;
 wire [2:0] alucontrol_w;
 wire [6:0] alucontrol7_w;
 wire b_imm_sel_w,branch_w,jump_w,memwrite_en_w,regwrite_en_w,wb_sel_w;
@@ -55,7 +55,7 @@ control_unit control_unit(.opcode(IF_ID_IR[6:0]),
                           .alucontrol7(alucontrol7_w)
                           );
 sign_extend sign_extend(.IR(IF_ID_IR),
-                        .imm_sel(imm_sel),
+                        .imm_sel(imm_sel_w),
                         .imm(ID_EX_IMM_w)
                         );
 

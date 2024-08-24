@@ -10,7 +10,7 @@ parameter R_TYPE = 7'b0110011, I_TYPE = 7'b0010011, B_TYPE = 7'b1100011, L_TYPE 
 
 assign imm_sel = (opcode == I_TYPE) ? 2'b01 : (opcode == B_TYPE | opcode == S_TYPE) ? 2'b10 :(opcode == J_TYPE) ? 2'b11: 2'b00;
 assign regwrite_en = (opcode == L_TYPE | opcode == R_TYPE | opcode == I_TYPE ) ? 1'b1 : 1'b0 ;
-assign alu_type_sel = (opcode == R_TYPE) ? 2'b01 : (opcode == B_TYPE) ? 2'b10 : 2'b00;
+assign alu_type_sel = (opcode == R_TYPE | opcode == I_TYPE) ? 2'b01 : (opcode == B_TYPE) ? 2'b10 : 2'b00;
 assign memwrite_en = (opcode == S_TYPE) ? 1'b1 : 1'b0;
 assign b_imm_sel= (opcode == I_TYPE) ? 1'b1:1'b0;
 assign branch = (opcode == B_TYPE) ? 1'b1 : 1'b0;
