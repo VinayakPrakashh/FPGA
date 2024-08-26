@@ -1,53 +1,41 @@
-module top (clk,rst
-);
+module top_if_id_ex_mem (clk,rst);
 
 //inputs
 input clk,rst;
 
-
-wire [31:0] WB_ID_WD3;
-wire [4:0] WB_ID_RD_A3;
-wire WB_ID_WE3;
-//outputs
-wire [4:0] MEM_WB_RD;
-wire MEM_WB_regwrite_en,MEM_WB_wb_sel;
-wire [31:0] MEM_WB_ALU_OUT, MEM_WB_LOAD_ALU_OUT;
-
-
-wire EX_MEM_wb_sel,EX_MEM_regwrite_en,EX_MEM_memwrite_en;
-wire [31:0] EX_MEM_writedata,EX_MEM_ALU_OUT;
-wire [4:0] EX_MEM_RD;
-
-//outputs
-wire PCSrcE;
-wire [31:0] PCtarget;
-wire [31:0] ID_EX_A,ID_EX_B,ID_EX_IMM,ID_EX_PC;
-wire [4:0] ID_EX_RD,ID_rs1,ID_rs2;
-wire [2:0] alucontrol;
-wire [6:0] alucontrol7;
-wire [1:0] alu_type_sel,forwardAE,forwardBE;
-wire b_imm_sel,branch,jump,memwrite_en,regwrite_en,wb_sel;
-
-
-//internal wires
+//wire
 wire [31:0] IF_ID_IR;
 wire [31:0] IF_ID_PC;
-
-
+wire [31:0] ID_EX_A, ID_EX_B,ID_EX_IMM,ID_EX_PC,PCtarget;
+wire [4:0] ID_EX_RD;
+wire [1:0] alu_type_sel;
+wire [2:0] alucontrol;
+wire [6:0] alucontrol7;
+wire b_imm_sel,branch,jump,memwrite_en,regwrite_en,wb_sel,PC_sel;
+wire [31:0] EX_MEM_ALU_OUT,EX_MEM_writedata;
+wire [4:0] EX_MEM_RD;
+wire EX_MEM_memwrite_en,EX_MEM_regwrite_en,EX_MEM_wb_sel;
+wire [4:0] MEM_WB_RD;
+wire MEM_WB_regwrite_en;
+wire MEM_WB_wb_sel;
+wire WB_ID_regwrite;
+wire [4:0] WB_ID_RDW_addr;
+wire [31:0] MEM_WB_ALU_OUT, MEM_WB_LOAD_ALU_OUT;
+wire [31:0] WB_ID_WD;
 //instantiate
 instruction_fetch instruction_fetch(.clk(clk),
                                     .rst(rst),
-                                    .PCSrcE(PCSrcE),
-                                    .PCTargetE(PCtarget),
+                                    .PCSrcE(PC_sel),
+                                    .PCTarget(PCtarget),
                                     .IF_ID_IR(IF_ID_IR),
                                     .IF_ID_PC(IF_ID_PC));
 instruction_decode instruction_decode(.clk(clk),
                                       .rst(rst),
                                       .IF_ID_IR(IF_ID_IR),
                                       .IF_ID_PC(IF_ID_PC),
-                                      .WB_ID_regwrite(WB_ID_WE3),
-                                      .WB_ID_WD(WB_ID_WD3),
-                                      .WB_ID_RDW_addr(WB_ID_RD_A3),
+                                      .WB_ID_regwrite(WB_ID_regwrite),
+                                      .WB_ID_WD(WB_ID_WD),
+                                      .WB_ID_RDW_addr(WB_ID_RDW_addr),
                                       .ID_EX_A(ID_EX_A),
                                       .ID_EX_B(ID_EX_B),
                                       .ID_EX_IMM(ID_EX_IMM),
@@ -80,13 +68,12 @@ instruction_execution instruction_execution(.clk(clk),
                                           .wb_sel(wb_sel),
                                           .EX_MEM_ALU_OUT(EX_MEM_ALU_OUT),
                                           .PCtarget(PCtarget),
-                                          .PC_sel(PCSrcE),
+                                          .PC_sel(PC_sel),
                                           .EX_MEM_memwrite_en(EX_MEM_memwrite_en),
                                           .EX_MEM_regwrite_en(EX_MEM_regwrite_en),
                                           .EX_MEM_wb_sel(EX_MEM_wb_sel),
                                           .EX_MEM_RD(EX_MEM_RD),
                                           .EX_MEM_writedata(EX_MEM_writedata));
-
 memory_access memory_access(.clk(clk),
                             .rst(rst),
                             .EX_MEM_ALU_OUT(EX_MEM_ALU_OUT),
@@ -101,23 +88,13 @@ memory_access memory_access(.clk(clk),
                             .MEM_WB_ALU_OUT(MEM_WB_ALU_OUT),
                             .MEM_WB_LOAD_ALU_OUT(MEM_WB_LOAD_ALU_OUT));
 write_back write_back(.clk(clk),
-    .rst(rst),
-    .MEM_WB_ALU_OUT(MEM_WB_ALU_OUT),
-    .MEM_WB_LOAD_ALU_OUT(MEM_WB_LOAD_ALU_OUT),
-    .MEM_WB_RD(MEM_WB_RD),
-    .MEM_WB_regwrite_en(MEM_WB_regwrite_en),
-    .MEM_WB_wb_sel(MEM_WB_wb_sel),
-    .WB_ID_WD3(WB_ID_WD3),
-    .WB_ID_RD_A3(WB_ID_RD_A3),
-    .WB_ID_WE3(WB_ID_WE3));
-hazard_unit hazard_unit(.rst(rst),
-                        .EX_MEM_regwrite_en(EX_MEM_regwrite_en),
-                        .MEM_WB_regwrite_en(MEM_WB_regwrite_en),
-                        .EX_MEM_RD(EX_MEM_RD),
-                        .MEM_WB_RD(MEM_WB_RD),
-                        .ID_EX_RD(ID_EX_RD),
-                        .forwardAE(forwardAE),
-                        .forwardBE(forwardBE));
-                        .ID_rs1(ID_rs1),
-                        .ID_rs2(ID_rs2),
+                      .rst(rst),
+                      .MEM_WB_ALU_OUT(MEM_WB_ALU_OUT),
+                      .MEM_WB_LOAD_ALU_OUT(MEM_WB_LOAD_ALU_OUT),
+                      .MEM_WB_RD(MEM_WB_RD),
+                      .MEM_WB_regwrite_en(MEM_WB_regwrite_en),
+                      .MEM_WB_wb_sel(MEM_WB_wb_sel),
+                      .WB_ID_WD3(WB_ID_WD),
+                      .WB_ID_RD_A3(WB_ID_RDW_addr),
+                      .WB_ID_WE3(WB_ID_regwrite));
 endmodule

@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module instruction_decode(clk, rst, IF_ID_IR, IF_ID_PC,WB_ID_regwrite,WB_ID_WD,WB_ID_RDW_addr, ID_EX_A, ID_EX_B,ID_EX_IMM,ID_EX_PC,ID_EX_RD, alu_type_sel, alucontrol, alucontrol7, b_imm_sel,branch,jump,memwrite_en,regwrite_en,wb_sel);
+module instruction_decode(clk, rst, IF_ID_IR, IF_ID_PC,WB_ID_regwrite,WB_ID_WD,WB_ID_RDW_addr, ID_EX_A, ID_EX_B,ID_EX_IMM,ID_EX_PC,ID_EX_RD, alu_type_sel, alucontrol, alucontrol7, b_imm_sel,branch,jump,memwrite_en,regwrite_en,wb_sel,ID_rs1,ID_rs2);
 // declaring the inputs
 input clk, rst,WB_ID_regwrite;
 input [31:0] IF_ID_IR, IF_ID_PC,WB_ID_WD;
@@ -7,7 +7,7 @@ input [4:0] WB_ID_RDW_addr;
 
 //outputs
 output [31:0] ID_EX_A, ID_EX_B,ID_EX_IMM,ID_EX_PC;
-output [4:0] ID_EX_RD;
+output [4:0] ID_EX_RD,ID_rs1,ID_rs2;
 output [1:0] alu_type_sel;
 output [2:0] alucontrol;
 output [6:0] alucontrol7;
@@ -15,20 +15,24 @@ output b_imm_sel,branch,jump,memwrite_en,regwrite_en,wb_sel;
 
 
 //registers
-reg [31:0]  ID_EX_PC_r, ID_EX_A_r, ID_EX_B_r, ID_EX_IMM_r,ID_EX_RD_r;
+reg [31:0]  ID_EX_PC_r, ID_EX_A_r, ID_EX_B_r, ID_EX_IMM_r;
+reg [4:0] ID_EX_RD_r,ID_rs1_r,ID_rs2_r;
 reg [1:0] alu_type_sel_r;
 reg [2:0] alucontrol_r;
 reg [6:0] alucontrol7_r;
 reg b_imm_sel_r,branch_r,jump_r,memwrite_en_r,regwrite_en_r,wb_sel_r; 
 
 //internal wires
-wire [31:0] ID_EX_PC_w, ID_EX_A_w, ID_EX_B_w, ID_EX_IMM_w,ID_EX_RD_w;
+wire [31:0] ID_EX_PC_w, ID_EX_A_w, ID_EX_B_w, ID_EX_IMM_w;
+wire [4:0] ID_EX_RD_w,ID_rs1_w,ID_rs2_w;
 wire [1:0] alu_type_sel_w,imm_sel_w;
 wire [2:0] alucontrol_w;
 wire [6:0] alucontrol7_w;
 wire b_imm_sel_w,branch_w,jump_w,memwrite_en_w,regwrite_en_w,wb_sel_w;
 
 assign ID_EX_RD_w = IF_ID_IR[11:7];
+assign ID_rs1_w = IF_ID_IR[19:15];
+assign ID_rs2_w = IF_ID_IR[24:20];
 //initiate the modules
 Register_File reg1(.clk(clk),
                    .rst(rst), 
@@ -75,6 +79,8 @@ always @(posedge clk or posedge rst)begin
         memwrite_en_r <= 1'b0;
         regwrite_en_r <= 1'b0;
         wb_sel_r <= 1'b0;
+        ID_rs1_r <= 5'b0;
+        ID_rs2_r <= 5'b0;
 
     end
     else begin
@@ -92,6 +98,8 @@ always @(posedge clk or posedge rst)begin
         memwrite_en_r <= memwrite_en_w;
         regwrite_en_r <= regwrite_en_w;
         wb_sel_r <= wb_sel_w;
+        ID_rs1_r <= ID_rs1_w;
+        ID_rs2_r <= ID_rs2_w;
     end
 end
 assign ID_EX_PC = ID_EX_PC_r;
@@ -108,5 +116,6 @@ assign jump = jump_r;
 assign memwrite_en = memwrite_en_r;
 assign regwrite_en = regwrite_en_r;
 assign wb_sel = wb_sel_r;
-
+assign ID_rs1 = ID_rs1_r;
+assign ID_rs2 = ID_rs2_r;
 endmodule
