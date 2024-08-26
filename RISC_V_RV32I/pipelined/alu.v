@@ -29,6 +29,7 @@ case(alu_type_sel)
         3'b101: branch_cond <= (ID_EX_A >= ID_EX_BI) ? 1'b1 : 1'b0;
         default:branch_cond <= 1'b0; 
         endcase
+    default: EX_MEM_ALU_OUT <= ID_EX_A + ID_EX_BI;
 endcase
 end
 endmodule

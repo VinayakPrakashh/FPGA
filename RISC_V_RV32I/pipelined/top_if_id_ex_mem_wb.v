@@ -1,4 +1,5 @@
-module top_if_id_ex_mem (clk,rst);
+`timescale 1ns / 1ps
+module top_if_id_ex_mem_wb2(clk,rst);
 
 //inputs
 input clk,rst;

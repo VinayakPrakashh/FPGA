@@ -12,7 +12,7 @@ assign imm_sel = (opcode == I_TYPE) ? 2'b01 : (opcode == B_TYPE | opcode == S_TY
 assign regwrite_en = (opcode == L_TYPE | opcode == R_TYPE | opcode == I_TYPE ) ? 1'b1 : 1'b0 ;
 assign alu_type_sel = (opcode == R_TYPE | opcode == I_TYPE) ? 2'b01 : (opcode == B_TYPE) ? 2'b10 : 2'b00;
 assign memwrite_en = (opcode == S_TYPE) ? 1'b1 : 1'b0;
-assign b_imm_sel= (opcode == I_TYPE) ? 1'b1:1'b0;
+assign b_imm_sel= (opcode == I_TYPE | opcode == L_TYPE | opcode == S_TYPE) ? 1'b1:1'b0;
 assign branch = (opcode == B_TYPE) ? 1'b1 : 1'b0;
 assign wb_sel = (opcode == L_TYPE) ? 1'b1 : 1'b0;
 assign jump = (opcode == J_TYPE) ? 1'b1 : 1'b0;
