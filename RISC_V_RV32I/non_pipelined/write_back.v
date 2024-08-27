@@ -15,6 +15,7 @@ module write_back (
 
     reg_file reg_file2(
     .WE(WR_EN),
+    .WR1(MEM_WB_ALU_OUT),
     .RE(0),
     .RW_addr(MEM_WB_IR[11:7])
 );

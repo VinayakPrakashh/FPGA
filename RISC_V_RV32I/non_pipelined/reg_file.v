@@ -14,10 +14,16 @@ if(WE==1'b1) Reg[RW_addr] <= WR1;
       RD2 <= Reg[RD1_addr];
       end
 end
-initial begin
-Reg[0] <= 32'h00000000;
-Reg[1] <= 32'h00000004;
-Reg[2] <= 32'h00000001;
-
-end
+    initial begin
+        Reg[0] = 32'h00000000;
+        Reg[1] = 32'h00000004;
+        Reg[2] = 32'h00000007;
+        Reg[3] = 32'h00000006;
+        Reg[4] = 32'h00000007;
+        Reg[5] = 32'h00000008;
+        Reg[6] = 32'h00000001;
+        Reg[7] = 32'h00000009;
+        Reg[8] = 32'h00000002;
+        Reg[9] = 32'h00000003;
+    end
 endmodule

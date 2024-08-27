@@ -3,7 +3,7 @@
 module decode_unit (
 IR,A,B,IMM,WE,RE,RW_addr,RD1_addr,RD1,RD2,WR1
 );
- parameter I_TYPE = 7'b0010011, B_TYPE = 7'b1100011, L_TYPE = 7'b0000001, S_TYPE = 7'b0100011, J_TYPE = 7'b1101111 ;
+ parameter I_TYPE = 7'b0010011, B_TYPE = 7'b1100011, L_TYPE = 7'b0000011, S_TYPE = 7'b0100011, J_TYPE = 7'b1101111 ;
 input [31:0] IR;
 output  [31:0] A,B;
 output reg  [31:0] IMM;
