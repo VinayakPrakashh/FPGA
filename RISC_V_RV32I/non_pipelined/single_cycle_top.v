@@ -18,7 +18,7 @@ wire [31:0] PC_MEM,IR_MEM;
 wire EX_WE,EX_RE;
 wire [4:0] EX_RW_addr,EX_RD1_addr;
 wire [31:0] EX_WR1,EX_RD1,EX_RD2;
-wire [31:0] MEM_WB_PC;
+
 
 
 instruction_mem1 instruction_memory6(
