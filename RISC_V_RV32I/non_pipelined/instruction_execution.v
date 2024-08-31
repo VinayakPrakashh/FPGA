@@ -3,47 +3,16 @@
 //`include "branching_unit.v"
 module instruction_execution(
     ID_EX_A,ID_EX_B,ID_EX_IMM,ID_EX_NPC,ID_EX_IR,
-    EX_MEM_ALU_OUT,ID_EX_IR,EX_MEM_IR,EX_MEM_PC
+    EX_MEM_ALU_OUT,EX_MEM_IR,EX_MEM_PC,ID_EX_PC
 );
- parameter R_TYPE = 7'b0110011, I_TYPE = 7'b0010011, B_TYPE = 7'b1100011, L_TYPE = 7'b0000001, S_TYPE = 7'b0100011, J_TYPE = 7'b1101111 ;
- parameter BEQ = 3'B000, BNE = 3'B001, BLT = 3'B010, BGT = 3'B011;
-input [31:0] ID_EX_A,ID_EX_B,ID_EX_IMM,ID_EX_NPC,ID_EX_IR;
+input [31:0] ID_EX_A,ID_EX_B,ID_EX_IMM,ID_EX_NPC,ID_EX_IR,ID_EX_PC;
 output [31:0] EX_MEM_ALU_OUT,EX_MEM_IR;
-output reg [31:0] EX_MEM_PC;
+output[31:0] EX_MEM_PC;
 wire [31:0] branch_pc;
-reg BRANCH;
-reg en_alu;
+wire BRANCH;
 reg [31:0] A_IMM;
-always @(*) begin
-if(BRANCH==1'b1) EX_MEM_PC <= branch_pc;
-else EX_MEM_PC <= ID_EX_NPC;
-end
 assign EX_MEM_IR = ID_EX_IR;
-ALU ALU1(
-    .A(ID_EX_A),
-    .B(A_IMM),
-    .func(ID_EX_IR[14:12]),
-    .opcode(ID_EX_IR[6:0]),
-    .Y(EX_MEM_ALU_OUT),
-    .ALU_EN(en_alu)
-    
-);
-branching_unit branching_unit1(
-    .ID_EX_A(ID_EX_A),
-    .ID_EX_B(ID_EX_B),
-    .ID_EX_NPC(ID_EX_NPC),
-    .ID_EX_IMM(ID_EX_IMM),
-    .br_en(BRANCH),
-    .EX_MEM_PC(branch_pc),
-    .ID_EX_IR(ID_EX_IR)
-);
-always @(*) begin
-
-case (ID_EX_IR[6:0])
-    R_TYPE:begin  en_alu<=1; A_IMM<=ID_EX_B;  end
-    I_TYPE:begin  en_alu<=1; A_IMM<=ID_EX_IMM;  end
-    S_TYPE,L_TYPE:begin  en_alu<=1; A_IMM<=ID_EX_IMM; end
-    B_TYPE,J_TYPE:begin BRANCH<= 1'b1; end
-endcase
-end
+alu alu1(.A(ID_EX_A),.B(ID_EX_B),.IMM(ID_EX_IMM),.IR(ID_EX_IR),.PC(ID_EX_PC),.ALU_OUT(EX_MEM_ALU_OUT),.branch(BRANCH));
+branching_unit branch1(.branch(BRANCH),.IR(ID_EX_IR),.IMM(ID_EX_IMM),.NPC(ID_EX_NPC),.PC(ID_EX_PC),.PC_out(EX_MEM_PC));
 endmodule
+
