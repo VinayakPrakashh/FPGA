@@ -1,11 +1,11 @@
 module top_if_id (
-    clk,rst,ID_EX_A,ID_EX_B,ID_EX_IMM,ID_EX_NPC,ID_EX_IR,
+    clk,rst,ID_EX_A,ID_EX_B,ID_EX_IMM,ID_EX_NPC,ID_EX_IR,ID_EX_PC,
     PC_NEXT
 );
 input clk,rst;
 input [31:0] PC_NEXT;
 
-output [31:0] ID_EX_A,ID_EX_B,ID_EX_IMM,ID_EX_NPC,ID_EX_IR;
+output [31:0] ID_EX_A,ID_EX_B,ID_EX_IMM,ID_EX_NPC,ID_EX_IR,ID_EX_PC;
 
 wire [31:0] PC_MEM,IR_MEM;
 wire [31:0] IF_ID_IR,IF_ID_NPC;
@@ -40,7 +40,9 @@ instruction_decode instruction_decode1(
     .RD1_addr(EX_RD1_addr),
     .WR1(EX_WR1),
     .RD1(EX_RD1),
-    .RD2(EX_RD2)
+    .RD2(EX_RD2),
+    .PC(PC_MEM),
+    .ID_EX_PC(ID_EX_PC)
 
 );
 endmodule

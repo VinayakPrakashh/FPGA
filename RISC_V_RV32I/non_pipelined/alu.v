@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-module alu(A,B,IMM,IR,PC,ALU_OUT,branch);
+module alu(A,B,IMM,IR,ALU_OUT,PC,ALU_OUT,branch);
 
 input [31:0] A,B,IMM,PC;
 input [31:0] IR;

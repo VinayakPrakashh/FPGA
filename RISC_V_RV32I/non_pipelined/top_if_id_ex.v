@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 module top_if_id_ex(
     clk,rst,EX_MEM_ALU_OUT,EX_MEM_IR,EX_MEM_PC,
     PC_NEXT
@@ -57,28 +58,4 @@ instruction_execution instruction_execution1(
     .EX_MEM_PC(EX_MEM_PC),
     .ID_EX_PC(ID_EX_PC)
 );
-endmodule
-
-module top_if_id_ex;
-reg clk;
-reg rst;
-reg [31:0] PC_NEXT;
-wire [31:0] EX_MEM_ALU_OUT,EX_MEM_IR,EX_MEM_PC;
-top_if_id_ex top_if_id_ex1(
-    .clk(clk),
-    .rst(rst),
-    .EX_MEM_ALU_OUT(EX_MEM_ALU_OUT),
-    .EX_MEM_IR(EX_MEM_IR),
-    .EX_MEM_PC(EX_MEM_PC),
-    .PC_NEXT(PC_NEXT)
-);
-initial begin
-    $monitor("PC_NEXT=%h EX_MEM_ALU_OUT=%h EX_MEM_IR=%h EX_MEM_PC=%h",PC_NEXT,EX_MEM_ALU_OUT,EX_MEM_IR,EX_MEM_PC);
-    clk = 0;
-    rst = 0;
-    PC_NEXT = 0;
-    rst = 1;
-    #10 rst = 0;
-end
-always #5 clk = ~clk;
 endmodule
