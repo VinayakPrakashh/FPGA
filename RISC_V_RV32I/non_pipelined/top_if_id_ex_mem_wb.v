@@ -101,3 +101,7 @@ begin
     #100 $finish;
 end
 endmodule
+
+
+
+res <= {A,Q} << 1;
