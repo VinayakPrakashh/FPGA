@@ -5,7 +5,7 @@ module write_back (
     MEM_WB_ALU_OUT,
     WB_IF_PC
 );
- parameter R_TYPE = 7'b0110011, I_TYPE = 7'b0010011;
+ parameter R_TYPE = 7'b0110011, I_TYPE = 7'b0010011, J_TYPE = 7'b1101111,LUI=7'b0110111, AUIPC=7'b0010111, JAL=7'b1101111, JALR=7'b1100111;
     input [31:0] MEM_WB_PC;
     input [31:0] MEM_WB_IR;
     input [31:0] MEM_WB_ALU_OUT;
@@ -21,7 +21,7 @@ module write_back (
 );
 always @(*) begin
     case (MEM_WB_IR[6:0])
-        R_TYPE,I_TYPE: WR_EN <=1;
+        R_TYPE,I_TYPE,J_TYPE,LUI,AUIPC,JAL,JALR: WR_EN <=1;
         default: WR_EN <= 0;
     endcase
 
