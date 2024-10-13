@@ -1,7 +1,7 @@
 module tb_elevator_control_top;
 
     // Inputs
-    reg clk;
+    reg clk;z
     reg [3:0] requested_floor;
     reg sensor;
     reg open_close_door;
